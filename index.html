@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Peddy - Pet Adoption Platform</title>
+    <link rel="shortcut icon" href="./assets/logo.webp" type="image/x-icon" />
+
+    <!-- font cdn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- tailwind css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+              lightCyan: "rgba(14, 122, 129, 0.1)",
+              lightGray: "rgba(19, 19, 19, 0.7)",
+              colorPrimary: "#0E7A81",
+            },
+            fontFamily: {
+              lato: "Lato",
+              inter: "Inter",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- style -->
+    <style>
+      .category-btn {
+        border-radius: 16px;
+        border: 1.5px solid rgba(14, 122, 129, 0.1);
+        background-color: white;
+      }
+      .active {
+        border-radius: 120px;
+        border: 1.5px solid #0e7490;
+        background-color: rgba(14, 122, 129, 0.1);
+      }
+
+      .adoptModal {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="font-lato">
+    <header>
+      <!-- navbar -->
+      <nav class="sm:w-11/12 mx-auto mb-12">
+        <div class="navbar bg-base-100">
+          <div class="navbar-start">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </div>
+              <ul
+                tabindex="0"
+                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li><a>Home</a></li>
+                <li><a>Shop</a></li>
+                <li><a>Contact</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-ghost text-xl text-[32px] font-black">
+              <img src="./assets/logo.webp" alt="" />
+              Peddy</a
+            >
+          </div>
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+              <li><a>Home</a></li>
+              <li><a>Shop</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <div class="navbar-end">
+            <a
+              class="btn btn-circle btn-outline hover:bg-lightCyan border-lightCyan"
+            >
+              <img src="./assets/user_icon.png" alt="" />
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- banner section -->
+      <section class="w-11/12 mx-auto text-center mb-24">
+        <div class="flex items-center justify-center">
+          <h3 class="text-2xl font-bold text-lightGray">
+            Bringing Families Together
+          </h3>
+          <img src="./assets/flame_heart_icon.jpg" alt="" />
+        </div>
+        <h1 class="text-7xl font-black leading-[88px] sm:w-2/3 mx-auto my-5">
+          Your Path to Adoption Starts Here
+        </h1>
+        <p class="text-base font-normal leading-[26px] sm:w-2/3 mx-auto">
+          At our organization, we believe that every pet deserves a loving home.
+          We connect families with their perfect companions, ensuring that every
+          adoption journey is a joyful experience.
+        </p>
+        <button
+          id="view-more-btn"
+          class="btn text-white bg-colorPrimary text-xl font-bold rounded-xl mt-8"
+        >
+          View More
+        </button>
+        <img class="mx-auto mt-12" src="./assets/pet.webp" alt="" />
+      </section>
+    </header>
+
+    <main>
+      <section id="main-section" class="w-11/12 mx-auto">
+        <!-- title container -->
+        <div class="text-center mb-12">
+          <h1 class="text-[40px] font-black mb-5">Adopt Your Best Friend</h1>
+          <p
+            class="text-base leading-[26px] font-normal w-11/12 sm:w-2/3 mx-auto"
+          >
+            Finding the right pet can be a life-changing experience. Our
+            dedicated team is here to guide you through the process, providing
+            you with the information and support you need to make an informed
+            decision.
+          </p>
+        </div>
+
+        <!-- category container -->
+        <div
+          id="category-container"
+          class="font-inter grid grid-cols-2 md:grid-cols-4 items-center justify-center gap-6 mb-8"
+        >
+          <!-- category => dog -->
+          <!-- <div
+            class="flex items-center justify-center gap-4 bg-lightCyan p-6 rounded-2xl border-[1.5px] border-lightCyan bg-white"
+          >
+            <img class="w-14 h-14" src="./assets/sample_icon_cat.png" alt="" />
+            <p class="text-2xl font-bold">Cat</p>
+          </div> -->
+
+          <!-- category => cat -->
+          <!-- <div
+            class="active flex items-center justify-center gap-4 p-6"
+          >
+            <img class="w-14 h-14" src="./assets/sample_icon_cat.png" alt="" />
+            <p class="text-2xl font-bold">Cat</p>
+          </div> -->
+
+          <!-- category => dog -->
+          <!-- <div
+            class="flex items-center justify-center gap-4 bg-lightCyan p-6 rounded-2xl border-[1.5px] border-lightCyan bg-white"
+          >
+            <img class="w-14 h-14" src="./assets/sample_icon_cat.png" alt="" />
+            <p class="text-2xl font-bold">Cat</p>
+          </div> -->
+
+          <!-- category => dog -->
+          <!-- <div
+            class="flex items-center justify-center gap-4 bg-lightCyan p-6 rounded-2xl border-[1.5px] border-lightCyan bg-white"
+          >
+            <img class="w-14 h-14" src="./assets/sample_icon_cat.png" alt="" />
+            <p class="text-2xl font-bold">Cat</p>
+          </div> -->
+        </div>
+
+        <!-- title -->
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-2xl font-black">Best Deals For You</h1>
+          <button
+            id="sortByPriceBtn"
+            class="btn text-xl font-bold bg-colorPrimary text-white rounded-xl"
+          >
+            Sort by Price
+          </button>
+        </div>
+
+        <!-- best deals & sort by price container -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+          <!-- best deal container -->
+          <div class="xl:col-span-9">
+            <!-- pets card container -->
+            <div
+              id="pets-container"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              <!-- card 1 -->
+              <!-- <div class="p-5 rounded-xl border">
+                <img
+                  class="rounded-lg h-40 object-cover w-full"
+                  src="./assets/sample_card_image.png"
+                  alt=""
+                />
+                <div class="space-y-2 mt-6 mb-4">
+                  <h3 class="text-xl font-bold font-inter">Pet Name</h3>
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/breed_icon.png" alt="" /> Breed: Golder
+                    retriever
+                  </p>
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/calender_icon.png" alt="" /> Birth: 2024
+                  </p>
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/gender_icon.png" alt="" /> Gender: Female
+                  </p>
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/dollar_icon.png" alt="" /> Price: $199
+                  </p>
+                </div>
+                <div class="divider"></div>
+                <div class="flex justify-between items-center">
+                  <button
+                    class="btn btn-sm border border-lightCyan hover:bg-teal-700 hover:text-white text-colorPrimary"
+                  >
+                    <img src="./assets/like_icon.png" alt="" />
+                  </button>
+                  <button
+                    class="btn btn-sm border border-lightCyan hover:bg-teal-700 hover:text-white text-colorPrimary"
+                  >
+                    Adopt
+                  </button>
+                  <button
+                    class="btn btn-sm border border-lightCyan hover:bg-teal-700 hover:text-white text-colorPrimary"
+                  >
+                    Details
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+          <!-- liked content -->
+          <div class="xl:col-span-3 border p-5 rounded-xl">
+            <!-- liked content container -->
+            <div
+              id="liked-pets-container"
+              class="grid grid-cols-2 justify-items-center gap-6"
+            >
+              <!-- <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <img
+                class="w-[124px] h-[124px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              /> -->
+            </div>
+          </div>
+        </div>
+
+        <!-- adopt modal -->
+        <button
+          id="showCountDownModalData"
+          class="btn hidden"
+          onclick="countdownModal.showModal()"
+        >
+          open modal conuntdown
+        </button>
+        <dialog id="countdownModal" class="modal">
+          <div class="modal-box w-11/12 max-w-5xl">
+            <!-- modal content -->
+            <div id="modal-content-countdown">
+              <!-- countdown 3, 2, 1 content goes here -->
+              <div class="flex flex-col justify-center items-center gap-2 py-10">
+                <img src="./assets/adoption.png"  class="w-48" alt="">
+                <h3 class="text-3xl font-medium">Congratulations!</h3>
+                <p class="text-xl font-medium">Adoption in Progress</p>
+                <p id="adoptCounter" class="text-4xl font-bold">3</p>
+              </div>
+            </div>
+            <!-- close button -->
+            <button id="closeCountDownModal" class="hidden">Cancel</button>
+          </div>
+        </dialog>
+
+        <!-- details modal -->
+        <button
+          id="showModalData"
+          class="btn hidden"
+          onclick="my_modal_4.showModal()"
+        >
+          open modal
+        </button>
+        <dialog id="my_modal_4" class="modal">
+          <div class="modal-box w-11/12 max-w-5xl">
+            <!-- modal content -->
+            <div id="modal-content">
+              <!-- <img
+                class="w-full h-[320px] object-cover rounded-lg"
+                src="./assets/sample_card_image.png"
+                alt=""
+              />
+              <h2 class="text-2xl font-bold font-inter mt-5 mb-3">Pet Name</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div class="space-y-2">
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/breed_icon.png" alt="" /> Breed: Golder
+                    retriever
+                  </p>
+
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/gender_icon.png" alt="" /> Gender: Male
+                  </p>
+
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/gender_icon.png" alt="" /> Vaccinated
+                    Status: Partially
+                  </p>
+                </div>
+
+                <div class="space-y-2">
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/calender_icon.png" alt="" /> Birth: 2024
+                  </p>
+
+                  <p
+                    class="flex items-center gap-2 text-base font-normal text-lightGray"
+                  >
+                    <img src="./assets/dollar_icon.png" alt="" /> Price: 199$
+                  </p>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="font-inter space-y-3">
+                <h4 class="text-base font-semibold">Details Information</h4>
+                <p class="text-base font-normal">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Atque, maiores.
+                </p>
+              </div> -->
+            </div>
+            <!-- close button -->
+            <button
+              id="closeModal"
+              class="hover:bg-gray-200 mt-4 text-colorPrimary text-lg font-bold w-full bg-lightCyan border-lightCyan border py-3 rounded-lg"
+            >
+              Cancel
+            </button>
+          </div>
+        </dialog>
+      </section>
+    </main>
+
+    <footer class="mt-8 py-24 border bg-[#131313]">
+      <div
+        class="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:gap-52 space-y-10 lg:space-y-0"
+      >
+        <!-- left content -->
+        <div>
+          <!-- brand -->
+          <div>
+            <a
+              class="flex gap-3 items-center text-xl text-[32px] font-black text-white"
+            >
+              <img src="./assets/logo.webp" alt="" />
+              Peddy</a
+            >
+          </div>
+          <div class="flex flex-col text-neutral-300 my-6 space-y-2">
+            <a href="">Location: av. Washington 165, NY CA 54003</a>
+            <a href="">Phone: +31 53 53 6422</a>
+            <a href="">Email: info@peddypet.com</a>
+            <a href="">Opening hours: 9.00 AM - 5.00 PM</a>
+          </div>
+
+          <!-- socials -->
+          <div class="flex items-center gap-6">
+            <a href="#"> <img src="./assets/facebook_logo.png" alt="" /></a>
+            <a href="#"> <img src="./assets/twitter_logo.png" alt="" /></a>
+            <a href="#"> <img src="./assets/youtube_logo.png" alt="" /></a>
+            <a href="#"> <img src="./assets/instagram_logo.png" alt="" /></a>
+          </div>
+        </div>
+
+        <!-- center content -->
+        <div>
+          <h5 class="text-lg font-bold font-inter text-neutral-300">
+            Useful Links
+          </h5>
+
+          <!-- links -->
+          <div class="flex flex-col text-neutral-300 mt-6 gap-2">
+            <a href="">Home</a>
+            <a href="">About Us</a>
+            <a href="">Animals</a>
+            <a href="">Foundation</a>
+            <a href="">Contact</a>
+          </div>
+        </div>
+
+        <!-- right content -->
+        <div>
+          <h5 class="text-lg font-bold font-inter text-neutral-300 mb-8">
+            Drop a Message
+          </h5>
+
+          <div class="flex items-center flex-col space-y-4">
+            <!-- email -->
+            <input
+              type="text"
+              placeholder="Enter your email"
+              class="input input-ghost w-full focus:bg-neutral-700 focus:outline-none focus:text-white"
+            />
+            <button
+              class="btn btn-block bg-colorPrimary text-white border-none text-xl font-bold"
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- scripts -->
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
